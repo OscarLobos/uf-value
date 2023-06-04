@@ -1,1 +1,1 @@
-# Conversión del valor de UF a CLP
+# Conversión valor de UF a CLP
