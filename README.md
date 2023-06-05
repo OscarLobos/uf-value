@@ -45,4 +45,4 @@ Una vez esto listo aparecera la dirección URL en la consola (--> Local: http//l
 
 El proyecto esta sin CSS. Además pueden ocurrir problemas de CORS que aún no he resuelto (he probado de todo pero aún siguen ahí), algunas veces tambien se puede deber al navegador.
 
-tratare de mejorar todo con el tiempo
+Tratare de mejorar todo con el tiempo 😵‍💫
