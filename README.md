@@ -2,10 +2,10 @@
 
 # Paso a Paso:
 
-Muy importante antes de comenzar es tener Nodejs instalado
-Antes de ejecutar cualquier comando estar en el directorio de la aplicación
+Muy importante antes de comenzar es tener Nodejs instalado y
+antes de ejecutar cualquier comando estar en el directorio de la aplicación.
 
-Para poder hacer funcionar el programa lo primero es editar el archivo .env
+Para poder hacer funcionar el programa lo primero es editar el archivo .env (cambiar el nombre del .env.sample)
 
 ```
 SECRET_JWT=superSecret
