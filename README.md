@@ -40,3 +40,8 @@ npm run serve
 ```
 
 Una vez esto listo aparecera la dirección URL en la consola (--> Local: http//localhost:port) para poder acceder a la aplicación.
+
+#Observaciones importantes
+
+El proyecto esta sin CSS,
+Pueden ocurrir problemas de CORS que aún no he resuelto (he probado de todo pero aún siguen ahí), algunas veces tambien se puede deber al navegador.
