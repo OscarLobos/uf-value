@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mysql = require("mysql2");
+const path = require("path");
 const sequelize = require("./db-connection/sequelize.database");
 const { Op } = require("sequelize");
 const cookieParser = require("cookie-parser");
@@ -31,8 +32,9 @@ const createDatabase = async () => {
 
 const PORT = 3001;
 
-app.use(cors({ origin: `http://localhost:${PORT}` }));
+app.use(cors());
 app.options("*", cors());
+
 app.use(
   helmet({
     contentSecurityPolicy: false,
@@ -48,18 +50,18 @@ const url = "/api/v1";
 app.use(`${url}/users`, userRoutes);
 app.use(`${url}/ufvalues`, UFValueRoutes);
 
-// app.use(express.static(path.join(__dirname, "../client/public")));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
-// app.get("/*", function (req, res) {
-//   res.sendFile(
-//     path.join(__dirname, "../client/public/index.html"),
-//     function (err) {
-//       if (err) {
-//         res.status(500).send(err);
-//       }
-//     }
-//   );
-// });
+app.get("/*", function (req, res) {
+  res.sendFile(
+    path.join(__dirname, "../client/dist/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
 
 const sequelizeSync = async () => {
   await sequelize
