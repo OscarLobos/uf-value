@@ -47,17 +47,21 @@ const Form = () => {
   const handleSubmit = (e) => {
     const person = user;
     e.preventDefault();
-    id(data?.originAmount);
+
     setClpValue(indicators?.serie[0].valor);
     const total = Number(clpValue) * Number(data?.originAmount);
     setConversionAmount(total);
-    const values = { total, userId: person?.id, clpValue: clpValue };
+    const values = {
+      conversionAmount: total,
+      userId: person?.id,
+      clpValue: clpValue,
+    };
 
     store(values);
   };
 
   const store = async (values) => {
-    const url = "http://localhost:3001/api/v1/ufvalues";
+    const url = "/api/v1/ufvalues";
     await axios
       .post(url, { ...data, ...values })
       .then((response) => {
