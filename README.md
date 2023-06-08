@@ -35,14 +35,14 @@ Abrir otra consola y ejecutar los siguiente comando:
 ```
 cd client/
 npm run build
-npm run serve
-
 ```
 
-Una vez esto listo aparecera la dirección URL en la consola (--> Local: http//localhost:port) para poder acceder a la aplicación.
+Una vez esto listo aparecera los archivo creados en dist (--> Local: http//localhost:3001) para poder acceder a la aplicación.
 
 #Observaciones importantes
 
-El proyecto esta sin CSS. Además pueden ocurrir problemas de CORS que aún no he resuelto (he probado de todo, pero aún siguen ahí), algunas veces, se deber al navegador aún no descarto esa posibilidad.
+- El fix de cors no es lo ideal tengo que aprender a arreglar el proglema cuando los puertos del cliente y el servidor son distintos, ya que por lo que veo se desconoce el origen, acutalmente node esta ejecutando el frontend.
+
+- El proyecto esta sin CSS debo agregar estilos.
 
 Tratare de mejorar todo con el tiempo 😵‍💫
