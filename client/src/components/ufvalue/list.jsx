@@ -1,6 +1,6 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
 const List = () => {
   const [list, setList] = useState([]);
@@ -8,43 +8,93 @@ const List = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const url = "http://localhost:3001/api/v1/ufvalues";
+      const url = '/api/v1/ufvalues';
       await axios
         .get(url)
-        .then((response) => {
+        .then(response => {
           const { data } = response;
           setList(data);
         })
-        .catch((err) => console.error(err));
+        .catch(err => console.error(err));
     };
     fetch();
   }, []);
 
-  const dateHourFormat = (date) => {
+  const getFilePromise = (thisPromise, thisHeaders) => {
+    return new Promise(resolve => {
+      resolve(
+        axios({
+          method: 'get',
+          url: thisPromise,
+          responseType: 'arraybuffer',
+          headers: thisHeaders,
+        })
+      );
+    });
+  };
+
+  const dateHourFormat = date => {
     const d = new Date(date);
-    const dayHour = d.toLocaleString("es-CL", {
-      day: "numeric",
-      month: "numeric",
-      year: "numeric",
-      hour: "numeric",
-      minute: "numeric",
+    const dayHour = d.toLocaleString('es-CL', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
     });
     return dayHour;
   };
 
+  const fileDownload = ({ object, type, filename, extension }) => {
+    const blob = new Blob([object], {
+      type: type,
+    });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${filename}.${extension}`;
+    link.click();
+  };
+
+  const getExcelFile = () => {
+    let apiStr = `/api/v1/ufvalues/generate/excel`;
+
+    return getFilePromise(apiStr, {
+      Accept:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'Content-Type': 'blob',
+    });
+  };
+
+  const handleXlsxDownload = async () => {
+    try {
+      return getExcelFile().then(response => {
+        fileDownload({
+          object: response.data,
+          type: 'application/vnd.ms-excel;charset=utf-8',
+          filename: `consolidado_conversión`,
+          extension: 'xlsx',
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const history = () => {
     const thead = [
-      "fecha y hora",
-      "usuario",
-      "monto origen",
-      "fecha conversion",
-      "valor moneda",
-      "monto conversion",
+      'fecha y hora',
+      'usuario',
+      'monto origen',
+      'fecha conversion',
+      'valor moneda',
+      'monto conversion',
     ];
     return (
       <div>
         {goBack && <Navigate path="/uf/historia" to="/uf/conversion" />}
         <button onClick={() => setGoBack(true)}>volver atras</button>
+        <button onClick={() => handleXlsxDownload()}>excel</button>
         <table>
           <thead>
             <tr>
